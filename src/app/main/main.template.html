@@ -18,7 +18,8 @@
 	<div>
 		<h2>Examlpe</h2>
 		<dropdown-tree options="$ctrl.options"
-									 selection-changed="$ctrl.selectionChanged(selection)">
+									 selection-changed="$ctrl.selectionChanged(selection)"
+									 settings="$ctrl.settings">
 		</dropdown-tree>
 	</div>
 	<div>
@@ -107,6 +108,12 @@
 						<td>['glyphicon', 'glyphicon-ok']</td>
 						<td>string or array of string</td>
 						<td>When an option is selcted a span is added with the classes configured</td>
+					</tr>
+					<tr>
+						<td>closeOnBlur</td>
+						<td>true</td>
+						<td>boolean</td>
+						<td>When true will close the dropdown when clicked outside of it.</td>
 					</tr>
 				</tbody>
 			</table>

@@ -22,6 +22,7 @@ export default class DropDownTreeController {
 		this.settings = {
 			displayProperty: 'name',
 			childrenProperty: 'children',
+			closeOnBlur: true,
 			selectedClass: [
 				'glyphicon',
 				'glyphicon-ok',
@@ -48,7 +49,7 @@ export default class DropDownTreeController {
 
 	toggleDropdown() {
 		this.open = !this.open;
-		if (this.open) {
+		if (this.open && this.settings.closeOnBlur) {
 			this.closeToggleOnBlurBinded = this.toggleOnBlur.bind(this);
 			this.$document.on('click', this.closeToggleOnBlurBinded);
 		}
