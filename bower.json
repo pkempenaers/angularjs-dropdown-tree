@@ -1,0 +1,39 @@
+{
+  "name": "angularjsDropdownTree",
+  "version": "0.0.0",
+	"authors": [
+		"Pieter Kempenaers <pieter.kempenaers@gmail.com>"
+	],
+	"description": "AngularJS Dropdown treeselect component",
+	"keywords": [
+		"angularjs",
+		"dropdown",
+		"select",
+		"treeview"
+	],
+	"license": "MIT",
+	"main": "dist/scripts/app.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/pkempenaers/angularjs-dropdown-tree.git"
+	},
+  "dependencies": {
+    "angular": "~1.5.3"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "~3.3.5",
+    "angular-mocks": "~1.5.3"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.eot",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.svg",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.ttf",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.woff",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.woff2"
+      ]
+    }
+  }
+}

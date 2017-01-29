@@ -1,0 +1,26 @@
+<div class="dropdown"
+		 ng-class="[
+			{'open': $ctrl.open}
+		 ]">
+	<div class="dropdown-toggle btn btn-default"
+			 ng-click="$ctrl.toggleDropdown()">
+		<span 
+					ng-if="$ctrl.selectedOptions.length === 0">
+			Select {{$ctrl.texts.optionNames}}
+		</span>
+		<span ng-if="$ctrl.selectedOptions.length > 0">
+			{{$ctrl.selectedOptions.length}} {{$ctrl.texts.optionNames}} selected
+		</span>
+	</div>
+	<div ng-if="$ctrl.open"
+			 class="dropdown-menu">
+		<ul>
+			<dropdown-tree-option-row ng-repeat="option in $ctrl.options track by $index"
+																option="option"
+																settings="$ctrl.settings"
+																option-clicked="$ctrl.optionClicked(innerOption)"
+																selected-options="$ctrl.selectedOptions">
+			</dropdown-tree-option-row>
+		</ul>
+	</div>
+</div>

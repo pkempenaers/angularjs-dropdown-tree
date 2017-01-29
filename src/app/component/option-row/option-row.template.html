@@ -1,0 +1,22 @@
+<li>
+	<div class="option"
+			 ng-class="[
+				{'folder': $ctrl.isFolder()},
+			 ]">
+		<div class="title"
+				 ng-click="$ctrl.innerClicked({innerOption: $ctrl.option})">
+			<span ng-if="$ctrl.isSelected()"
+						ng-class="$ctrl.settings.selectedClass"></span>
+			{{$ctrl.getDisplayText()}}
+		</div>
+		<ul class="children"
+				 ng-if="$ctrl.isFolder()">
+			<dropdown-tree-option-row ng-repeat="option in $ctrl.getChildOptions() track by $index"
+																option="option"
+																settings="$ctrl.settings"
+																option-clicked="$ctrl.innerClicked({innerOption: option})"
+																selected-options="$ctrl.selectedOptions">
+			</dropdown-tree-option-row>
+		</ul>
+	</div>
+</li>
