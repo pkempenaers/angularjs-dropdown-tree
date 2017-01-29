@@ -7,6 +7,10 @@
 				 ng-click="$ctrl.innerClicked({innerOption: $ctrl.option})">
 			<span ng-if="$ctrl.isSelected()"
 						ng-class="$ctrl.settings.selectedClass"></span>
+			<span ng-if="$ctrl.isFolder()"
+						ng-class="$ctrl.settings.folderClass"></span>
+			<span ng-if="!$ctrl.isFolder()"
+						ng-class="$ctrl.settings.childClass"></span>
 			{{$ctrl.getDisplayText()}}
 		</div>
 		<ul class="children"

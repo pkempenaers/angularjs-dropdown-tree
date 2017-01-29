@@ -27,6 +27,14 @@ export default class DropDownTreeController {
 				'glyphicon',
 				'glyphicon-ok',
 			],
+			folderClass: [
+				'glyphicon',
+				'glyphicon-folder-open',
+			],
+			childClass: [
+				'glyphicon',
+				'glyphicon-file',
+			],
 		};
 	}
 
