@@ -11,9 +11,7 @@ export default class DropDownTreeController {
 		this.$document = $document;
 		this.$element = $element;
 		this.$rootScope = $rootScope;
-	}
 
-	$onInit() {
 		this.open = false;
 		this.selectedOptions = [];
 
@@ -37,14 +35,14 @@ export default class DropDownTreeController {
 		}
 		if (angular.isDefined(changes.externalSelection)) {
 			if (angular.isArray(changes.externalSelection)) {
-				this.selectedOptions = changes.externalSelection;
+				this.selectedOptions = this.externalSelection;
 				this.emitSelection();
 			} else {
 				this.$log.error('selection should be an array');
 			}
 		}
-		if (angular.isDefined(changes.settings)) {
-			angular.extend(this.settings, changes.settings);
+		if (angular.isDefined(changes.externalSettings)) {
+			angular.extend(this.settings, this.externalSettings);
 		}
 	}
 
