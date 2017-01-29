@@ -8,7 +8,7 @@
 						ng-class="$ctrl.settings.selectedClass"></span>
 			<span ng-if="$ctrl.isFolder()"
 						ng-click="$ctrl.toggleFolder()"
-						ng-class="$ctrl.settings.folderClass"></span>
+						ng-class="$ctrl.isOpen ? $ctrl.settings.folderClass : $ctrl.settings.folderClosedClass"></span>
 			<span ng-if="!$ctrl.isFolder()"
 						ng-class="$ctrl.settings.childClass"></span>
 			<span ng-click="$ctrl.innerClicked({innerOption: $ctrl.option})">
