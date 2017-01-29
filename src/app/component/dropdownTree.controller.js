@@ -23,6 +23,7 @@ export default class DropDownTreeController {
 			displayProperty: 'name',
 			childrenProperty: 'children',
 			closeOnBlur: true,
+			folderSelectable: true,
 			selectedClass: [
 				'glyphicon',
 				'glyphicon-ok',
