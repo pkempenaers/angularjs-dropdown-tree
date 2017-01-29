@@ -3,18 +3,20 @@
 			 ng-class="[
 				{'folder': $ctrl.isFolder()},
 			 ]">
-		<div class="title"
-				 ng-click="$ctrl.innerClicked({innerOption: $ctrl.option})">
+		<div class="title">
 			<span ng-if="$ctrl.isSelected()"
 						ng-class="$ctrl.settings.selectedClass"></span>
 			<span ng-if="$ctrl.isFolder()"
+						ng-click="$ctrl.toggleFolder()"
 						ng-class="$ctrl.settings.folderClass"></span>
 			<span ng-if="!$ctrl.isFolder()"
 						ng-class="$ctrl.settings.childClass"></span>
-			{{$ctrl.getDisplayText()}}
+			<span ng-click="$ctrl.innerClicked({innerOption: $ctrl.option})">
+				{{$ctrl.getDisplayText()}}
+			</span>
 		</div>
 		<ul class="children"
-				 ng-if="$ctrl.isFolder()">
+				 ng-if="$ctrl.isFolder() && $ctrl.isOpen">
 			<dropdown-tree-option-row ng-repeat="option in $ctrl.getChildOptions() track by $index"
 																option="option"
 																settings="$ctrl.settings"

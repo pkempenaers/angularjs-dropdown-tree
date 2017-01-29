@@ -1,4 +1,10 @@
 export default class OptionRow {
+	constructor() {
+		if (this.isFolder()) {
+			this.isOpen = true;
+		}
+	}
+
 	getDisplayText() {
 		return this.option[this.settings.displayProperty];
 	}
@@ -18,5 +24,9 @@ export default class OptionRow {
 
 	isSelected() {
 		return this.selectedOptions.indexOf(this.option) >= 0;
+	}
+
+	toggleFolder() {
+		this.isOpen = !this.isOpen;
 	}
 }
