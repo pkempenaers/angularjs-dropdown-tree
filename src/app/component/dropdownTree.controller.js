@@ -1,10 +1,16 @@
 export default class DropDownTreeController {
 	constructor(
 		$log,
+		$document,
+		$element,
+		$rootScope,
 	) {
 		'ngInject';
 
 		this.$log = $log;
+		this.$document = $document;
+		this.$element = $element;
+		this.$rootScope = $rootScope;
 	}
 
 	$onInit() {
@@ -44,6 +50,33 @@ export default class DropDownTreeController {
 
 	toggleDropdown() {
 		this.open = !this.open;
+		if (this.open) {
+			this.closeToggleOnBlurBinded = this.toggleOnBlur.bind(this);
+			this.$document.on('click', this.closeToggleOnBlurBinded);
+		}
+	}
+
+	toggleOnBlur(e) {
+		if (e.target && e.target.parentElement) {
+			let target = e.target.parentElement;
+			let parentFound = false;
+
+			while (angular.isDefined(target) && target !== null && !parentFound) {
+				if (!!target.className.split && target.className.split(' ').indexOf('dropdown-tree-parent') >= 0 && !parentFound) {
+					if (target === this.$element.children()[0]) {
+						parentFound = true;
+					}
+				}
+				target = target.parentElement;
+			}
+
+			if (!parentFound) {
+				this.$rootScope.$apply(() => {
+					this.toggleDropdown();
+					this.$document.off('click', this.closeToggleOnBlurBinded);
+				});
+			}
+		}
 	}
 
 	optionClicked(option) {
