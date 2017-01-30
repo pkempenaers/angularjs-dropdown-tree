@@ -12,6 +12,7 @@ export default function optionRowComponent() {
 			focusNext: '&',
 			focusPrevious: '&',
 			catchKeydown: '&',
+			searchText: '@',
 		},
 	};
 

@@ -15,6 +15,15 @@
 	</button>
 	<div ng-if="$ctrl.open"
 			 class="dropdown-menu">
+		<div class="top-menu form-group"
+				 ng-if="!$ctrl.settings.disableSearch">
+			<input class="form-control"
+						 ng-if="!$ctrl.settings.disableSearch"
+						 type="text"
+						 ng-model="$ctrl.searchText"
+						 placeholder="Search"
+						 ng-keydown="$ctrl.searchKeydown($event)" />
+		</div>
 		<ul>
 			<dropdown-tree-option-row ng-repeat="option in $ctrl.options track by $index"
 																option="option"
@@ -23,7 +32,8 @@
 																selected-options="$ctrl.selectedOptions"
 																focus-next="$ctrl.focusNext()"
 																focus-previous="$ctrl.focusPrevious()"
-																catch-keydown="$ctrl.catchKeyDown(event)">
+																catch-keydown="$ctrl.catchKeyDown(event)"
+																search-text="{{$ctrl.searchText}}">
 			</dropdown-tree-option-row>
 		</ul>
 	</div>

@@ -30,6 +30,22 @@ export default class OptionRow {
 		this.isOpen = !this.isOpen;
 	}
 
+	shouldBeVisible(item = this.option) {
+		if (item[this.settings.childrenProperty] && !this.shouldBeVisibleItem(item)) {
+			return this.option[this.settings.childrenProperty]
+				.some(childItem => this.shouldBeVisible(childItem));
+		}
+		return this.shouldBeVisibleItem(item);
+	}
+
+	shouldBeVisibleItem(item = this.option) {
+		if (this.searchText.length > 0) {
+			return item[this.settings.displayProperty].toLowerCase()
+				.indexOf(this.searchText.trim().toLowerCase()) >= 0;
+		}
+		return true;
+	}
+
 	keyDown(event) {
 		switch (event.key) {
 		case 'Enter':

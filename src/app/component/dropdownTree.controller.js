@@ -24,6 +24,7 @@ export default class DropDownTreeController {
 		this.settings = {
 			displayProperty: 'name',
 			childrenProperty: 'children',
+			disableSearch: false,
 			closeOnBlur: true,
 			folderSelectable: true,
 			selectedClass: [
@@ -120,6 +121,21 @@ export default class DropDownTreeController {
 		}
 	}
 
+	searchKeydown(event) {
+		switch (event.key) {
+		case 'ArrowDown':
+			this.focusNext();
+			event.preventDefault();
+			break;
+		case 'ArrowUp':
+			this.focusSelf();
+			event.preventDefault();
+			break;
+		default:
+			this.catchKeyDown(event);
+		}
+	}
+
 	catchKeyDown(event) {
 		switch (event.key) {
 		case 'Escape':
@@ -135,8 +151,13 @@ export default class DropDownTreeController {
 	}
 
 	focusFirst() {
-		this.$element.find('label')[0].focus();
-		this.focusCounter = 0;
+		if (this.settings.disableSearch) {
+			this.$element.find('label')[0].focus();
+			this.focusCounter = 0;
+		} else {
+			this.$element.find('input')[0].focus();
+			this.focusCounter = -1;
+		}
 	}
 
 	focusNext() {
@@ -152,6 +173,8 @@ export default class DropDownTreeController {
 		if (this.focusCounter >= 1) {
 			this.focusCounter -= 1;
 			focusableItems[this.focusCounter].focus();
+		} else if (!this.settings.disableSearch) {
+			this.focusFirst();
 		} else {
 			this.focusSelf();
 		}
