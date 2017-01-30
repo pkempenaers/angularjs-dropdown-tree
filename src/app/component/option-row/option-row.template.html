@@ -11,9 +11,11 @@
 						ng-class="$ctrl.isOpen ? $ctrl.settings.folderClass : $ctrl.settings.folderClosedClass"></span>
 			<span ng-if="!$ctrl.isFolder()"
 						ng-class="$ctrl.settings.childClass"></span>
-			<span ng-click="(!$ctrl.isFolder() || $ctrl.settings.folderSelectable) && $ctrl.innerClicked({innerOption: $ctrl.option})">
+			<label tabindex="-1" 
+						 ng-click="(!$ctrl.isFolder() || $ctrl.settings.folderSelectable) && $ctrl.innerClicked({innerOption: $ctrl.option})"
+						 ng-keydown="$ctrl.keyDown($event)">
 				{{$ctrl.getDisplayText()}}
-			</span>
+			</label>
 		</div>
 		<ul class="children"
 				 ng-if="$ctrl.isFolder() && $ctrl.isOpen">
@@ -21,7 +23,10 @@
 																option="option"
 																settings="$ctrl.settings"
 																option-clicked="$ctrl.innerClicked({innerOption: option})"
-																selected-options="$ctrl.selectedOptions">
+																selected-options="$ctrl.selectedOptions"
+																focus-next="$ctrl.focusNext()"
+																focus-previous="$ctrl.focusPrevious()"
+																catch-keydown="$ctrl.catchKeydown(event)">
 			</dropdown-tree-option-row>
 		</ul>
 	</div>

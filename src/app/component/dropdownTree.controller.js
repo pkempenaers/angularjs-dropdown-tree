@@ -15,6 +15,8 @@ export default class DropDownTreeController {
 		this.open = false;
 		this.selectedOptions = [];
 
+		this.focusCounter = 0;
+
 		this.texts = {
 			optionNames: 'items',
 		};
@@ -103,5 +105,59 @@ export default class DropDownTreeController {
 
 	emitSelection() {
 		this.selectionChanged({ selection: this.selectedOptions });
+	}
+
+	dropdownToggleKeyDown(event) {
+		switch (event.key) {
+		case 'ArrowDown':
+			if (this.open) {
+				this.focusFirst();
+				event.preventDefault();
+			}
+			break;
+		default:
+			this.catchKeyDown(event);
+		}
+	}
+
+	catchKeyDown(event) {
+		switch (event.key) {
+		case 'Escape':
+			if (this.open) {
+				this.toggleDropdown();
+				this.focusSelf();
+				event.preventDefault();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	focusFirst() {
+		this.$element.find('label')[0].focus();
+		this.focusCounter = 0;
+	}
+
+	focusNext() {
+		const focusableItems = this.$element.find('label');
+		if (focusableItems.length > this.focusCounter + 1) {
+			this.focusCounter += 1;
+			focusableItems[this.focusCounter].focus();
+		}
+	}
+
+	focusPrevious() {
+		const focusableItems = this.$element.find('label');
+		if (this.focusCounter >= 1) {
+			this.focusCounter -= 1;
+			focusableItems[this.focusCounter].focus();
+		} else {
+			this.focusSelf();
+		}
+	}
+
+	focusSelf() {
+		this.$element.find('button')[0].focus();
 	}
 }

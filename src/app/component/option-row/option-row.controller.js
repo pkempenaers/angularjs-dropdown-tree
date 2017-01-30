@@ -29,4 +29,26 @@ export default class OptionRow {
 	toggleFolder() {
 		this.isOpen = !this.isOpen;
 	}
+
+	keyDown(event) {
+		switch (event.key) {
+		case 'Enter':
+			if (!this.isFolder() || this.settings.folderSelectable) {
+				this.innerClicked({ innerOption: this.option });
+				event.preventDefault();
+			}
+			break;
+		case 'ArrowDown':
+			this.focusNext();
+			event.preventDefault();
+			break;
+		case 'ArrowUp':
+			this.focusPrevious();
+			event.preventDefault();
+			break;
+		default:
+			this.catchKeydown({ event });
+			break;
+		}
+	}
 }
