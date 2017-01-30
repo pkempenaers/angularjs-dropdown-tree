@@ -1,9 +1,10 @@
-<div class="dropdown"
+<div class="dropdown dropdown-tree-parent"
 		 ng-class="[
 			{'open': $ctrl.open}
 		 ]">
-	<div class="dropdown-toggle btn btn-default"
-			 ng-click="$ctrl.toggleDropdown()">
+	<button class="dropdown-toggle btn btn-default"
+					ng-click="$ctrl.toggleDropdown()"
+					ng-keydown="$ctrl.dropdownToggleKeyDown($event)">
 		<span 
 					ng-if="$ctrl.selectedOptions.length === 0">
 			Select {{$ctrl.texts.optionNames}}
@@ -11,15 +12,28 @@
 		<span ng-if="$ctrl.selectedOptions.length > 0">
 			{{$ctrl.selectedOptions.length}} {{$ctrl.texts.optionNames}} selected
 		</span>
-	</div>
+	</button>
 	<div ng-if="$ctrl.open"
 			 class="dropdown-menu">
+		<div class="top-menu form-group"
+				 ng-if="!$ctrl.settings.disableSearch">
+			<input class="form-control"
+						 ng-if="!$ctrl.settings.disableSearch"
+						 type="text"
+						 ng-model="$ctrl.searchText"
+						 placeholder="Search"
+						 ng-keydown="$ctrl.searchKeydown($event)" />
+		</div>
 		<ul>
 			<dropdown-tree-option-row ng-repeat="option in $ctrl.options track by $index"
 																option="option"
 																settings="$ctrl.settings"
 																option-clicked="$ctrl.optionClicked(innerOption)"
-																selected-options="$ctrl.selectedOptions">
+																selected-options="$ctrl.selectedOptions"
+																focus-next="$ctrl.focusNext()"
+																focus-previous="$ctrl.focusPrevious()"
+																catch-keydown="$ctrl.catchKeyDown(event)"
+																search-text="{{$ctrl.searchText}}">
 			</dropdown-tree-option-row>
 		</ul>
 	</div>

@@ -18,7 +18,8 @@
 	<div>
 		<h2>Examlpe</h2>
 		<dropdown-tree options="$ctrl.options"
-									 selection-changed="$ctrl.selectionChanged(selection)">
+									 selection-changed="$ctrl.selectionChanged(selection)"
+									 settings="$ctrl.settings">
 		</dropdown-tree>
 	</div>
 	<div>
@@ -108,6 +109,42 @@
 						<td>string or array of string</td>
 						<td>When an option is selcted a span is added with the classes configured</td>
 					</tr>
+					<tr>
+						<td>folderClass</td>
+						<td>['glyphicon', 'glyphicon-folder-open']</td>
+						<td>string or array of strings</td>
+						<td>Class of the span before the name of an option when the option is a folder and the folder is opened</td>
+					</tr>
+					<tr>
+						<td>folderClosedClass</td>
+						<td>['glyphicon', 'glyphicon-folder-close']</td>
+						<td>string or array of strings</td>
+						<td>Class of the span before the name of an option when the option is a folder and the folder is closed</td>
+					</tr>
+					<tr>
+						<td>childClass</td>
+						<td>['glyphicon', 'glyphicon-file']</td>
+						<td>string or array of strings</td>
+						<td>Class of the span before the name of an option when the option is not a folder</td>
+					</tr>
+					<tr>
+						<td>closeOnBlur</td>
+						<td>true</td>
+						<td>boolean</td>
+						<td>When true will close the dropdown when clicked outside of it.</td>
+					</tr>
+					<tr>
+						<td>folderSelectable</td>
+						<td>true</td>
+						<td>boolean</td>
+						<td>When true a folder is selectable otherwise only children can be selected</td>
+					</tr>
+					<tr>
+						<td>disableSearch</td>
+						<td>false</td>
+						<td>boolean</td>
+						<td>When false an input field that enables filtering the options will be available</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -132,6 +169,17 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
+		<div>
+			<h3>Keyboard controls</h3>
+			<p>
+				The component offers some basic keyboard controls:
+				<ul>
+					<li>Navigate between options with arrow keys</li>
+					<li>Selecting options using Enter</li>
+					<li>Closing dropdown using Escape</li>
+				</ul>
+			</p>
 		</div>
 	</div>
 </section>

@@ -19,6 +19,9 @@ export default class MainController {
 				],
 			},
 		];
+
+		this.settings = {
+		};
 	}
 
 	selectionChanged(selection) {

@@ -7,8 +7,12 @@ export default function optionRowComponent() {
 		bindings: {
 			option: '<',
 			settings: '<',
-			optionClicked: '&',
 			selectedOptions: '<',
+			optionClicked: '&',
+			focusNext: '&',
+			focusPrevious: '&',
+			catchKeydown: '&',
+			searchText: '@',
 		},
 	};
 

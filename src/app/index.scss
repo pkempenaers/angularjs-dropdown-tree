@@ -86,6 +86,16 @@ dropdown-tree {
 		margin-top: 0;
 	}
 
+	.top-menu {
+		margin-bottom: 0.5em;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+		padding: 0.5em 1em;
+		input {
+			border-radius: 0;
+			height: 2em;
+		}
+	}
+
 	ul {
 		list-style-type: none;
 		padding-left: 1em;
