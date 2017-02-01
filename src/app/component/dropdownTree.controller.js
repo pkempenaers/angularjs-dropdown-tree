@@ -152,7 +152,7 @@ export default class DropDownTreeController {
 
 	focusFirst() {
 		if (this.settings.disableSearch) {
-			this.$element.find('label')[0].focus();
+			this.$element[0].querySelectorAll('.focusable')[0].focus();
 			this.focusCounter = 0;
 		} else {
 			this.$element.find('input')[0].focus();
@@ -161,7 +161,7 @@ export default class DropDownTreeController {
 	}
 
 	focusNext() {
-		const focusableItems = this.$element.find('label');
+		const focusableItems = this.$element[0].querySelectorAll('.focusable');
 		if (focusableItems.length > this.focusCounter + 1) {
 			this.focusCounter += 1;
 			focusableItems[this.focusCounter].focus();
@@ -169,7 +169,7 @@ export default class DropDownTreeController {
 	}
 
 	focusPrevious() {
-		const focusableItems = this.$element.find('label');
+		const focusableItems = this.$element[0].querySelectorAll('.focusable');
 		if (this.focusCounter >= 1) {
 			this.focusCounter -= 1;
 			focusableItems[this.focusCounter].focus();
