@@ -1,21 +1,25 @@
 export default class OptionRow {
-	constructor() {
+	constructor(
+		dropdownTreeService,
+	) {
+		'ngInject';
+
+		this.dropdownTreeService = dropdownTreeService;
 		if (this.isFolder()) {
 			this.isOpen = true;
 		}
 	}
 
 	getDisplayText() {
-		return this.option[this.settings.displayProperty];
+		return this.dropdownTreeService.getDisplayText(this.option, this.settings);
 	}
 
 	isFolder() {
-		return Object.prototype.hasOwnProperty.call(this.option, this.settings.childrenProperty) &&
-			angular.isArray(this.option[this.settings.childrenProperty]);
+		return this.dropdownTreeService.isFolder(this.option, this.settings);
 	}
 
 	getChildOptions() {
-		return this.option[this.settings.childrenProperty];
+		return this.dropdownTreeService.getChildOptions(this.option, this.settings);
 	}
 
 	innerClicked(option) {
@@ -30,20 +34,8 @@ export default class OptionRow {
 		this.isOpen = !this.isOpen;
 	}
 
-	shouldBeVisible(item = this.option) {
-		if (item[this.settings.childrenProperty] && !this.shouldBeVisibleItem(item)) {
-			return this.option[this.settings.childrenProperty]
-				.some(childItem => this.shouldBeVisible(childItem));
-		}
-		return this.shouldBeVisibleItem(item);
-	}
-
-	shouldBeVisibleItem(item = this.option) {
-		if (this.searchText.length > 0) {
-			return item[this.settings.displayProperty].toLowerCase()
-				.indexOf(this.searchText.trim().toLowerCase()) >= 0;
-		}
-		return true;
+	shouldBeVisible() {
+		return this.dropdownTreeService.isVisible(this.option, this.settings, this.searchText);
 	}
 
 	keyDown(event) {
