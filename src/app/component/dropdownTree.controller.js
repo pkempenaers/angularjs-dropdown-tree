@@ -4,6 +4,7 @@ export default class DropDownTreeController {
 		$document,
 		$element,
 		$rootScope,
+		dropdownTreeService,
 	) {
 		'ngInject';
 
@@ -11,8 +12,10 @@ export default class DropDownTreeController {
 		this.$document = $document;
 		this.$element = $element;
 		this.$rootScope = $rootScope;
+		this.dropdownTreeService = dropdownTreeService;
 
 		this.open = false;
+		this.searchText = '';
 		this.selectedOptions = [];
 
 		this.focusCounter = 0;
@@ -104,6 +107,31 @@ export default class DropDownTreeController {
 		this.emitSelection();
 	}
 
+	selectAllVisible() {
+		this.selectedOptions.splice(0, this.selectedOptions.length);
+		this.options.forEach((option) => {
+			this.selectAllChildVisible(option);
+		});
+		this.emitSelection();
+	}
+
+	selectAllChildVisible(option) {
+		if (this.dropdownTreeService.isVisible(option, this.settings, this.searchText)) {
+			if (this.dropdownTreeService.isFolder(option, this.settings)) {
+				if (this.settings.folderSelectable &&
+					this.dropdownTreeService.isVisibleItem(option, this.settings, this.searchText)) {
+					this.selectedOptions.push(option);
+				}
+				this.dropdownTreeService.getChildOptions(option, this.settings)
+				.forEach((childOption) => {
+					this.selectAllChildVisible(childOption);
+				});
+			} else {
+				this.selectedOptions.push(option);
+			}
+		}
+	}
+
 	emitSelection() {
 		this.selectionChanged({ selection: this.selectedOptions });
 	}
@@ -129,6 +157,10 @@ export default class DropDownTreeController {
 			break;
 		case 'ArrowUp':
 			this.focusSelf();
+			event.preventDefault();
+			break;
+		case 'Enter':
+			this.selectAllVisible();
 			event.preventDefault();
 			break;
 		default:
