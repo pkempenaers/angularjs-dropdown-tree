@@ -4,6 +4,7 @@ export default class DropDownTreeController {
 		$document,
 		$element,
 		$rootScope,
+		dropdownTreeService,
 	) {
 		'ngInject';
 
@@ -11,8 +12,10 @@ export default class DropDownTreeController {
 		this.$document = $document;
 		this.$element = $element;
 		this.$rootScope = $rootScope;
+		this.dropdownTreeService = dropdownTreeService;
 
 		this.open = false;
+		this.searchText = '';
 		this.selectedOptions = [];
 
 		this.focusCounter = 0;
@@ -52,7 +55,7 @@ export default class DropDownTreeController {
 		}
 		if (angular.isDefined(changes.externalSelection)) {
 			if (angular.isArray(changes.externalSelection)) {
-				this.selectedOptions = this.externalSelection;
+				this.selectedOptions = angular.copy([], this.externalSelection);
 				this.emitSelection();
 			} else {
 				this.$log.error('selection should be an array');
@@ -104,6 +107,17 @@ export default class DropDownTreeController {
 		this.emitSelection();
 	}
 
+	selectAllVisible() {
+		const newSelection =
+			this.dropdownTreeService.getSelection(this.options, this.settings, this.searchText);
+		if (!this.dropdownTreeService.areSameSelections(newSelection, this.selectedOptions)) {
+			this.selectedOptions = newSelection;
+		} else {
+			this.selectedOptions.splice(0, this.selectedOptions.length);
+		}
+		this.emitSelection();
+	}
+
 	emitSelection() {
 		this.selectionChanged({ selection: this.selectedOptions });
 	}
@@ -131,6 +145,10 @@ export default class DropDownTreeController {
 			this.focusSelf();
 			event.preventDefault();
 			break;
+		case 'Enter':
+			this.selectAllVisible();
+			event.preventDefault();
+			break;
 		default:
 			this.catchKeyDown(event);
 		}
@@ -152,7 +170,7 @@ export default class DropDownTreeController {
 
 	focusFirst() {
 		if (this.settings.disableSearch) {
-			this.$element.find('label')[0].focus();
+			this.$element[0].querySelectorAll('.focusable')[0].focus();
 			this.focusCounter = 0;
 		} else {
 			this.$element.find('input')[0].focus();
@@ -161,7 +179,7 @@ export default class DropDownTreeController {
 	}
 
 	focusNext() {
-		const focusableItems = this.$element.find('label');
+		const focusableItems = this.$element[0].querySelectorAll('.focusable');
 		if (focusableItems.length > this.focusCounter + 1) {
 			this.focusCounter += 1;
 			focusableItems[this.focusCounter].focus();
@@ -169,7 +187,7 @@ export default class DropDownTreeController {
 	}
 
 	focusPrevious() {
-		const focusableItems = this.$element.find('label');
+		const focusableItems = this.$element[0].querySelectorAll('.focusable');
 		if (this.focusCounter >= 1) {
 			this.focusCounter -= 1;
 			focusableItems[this.focusCounter].focus();

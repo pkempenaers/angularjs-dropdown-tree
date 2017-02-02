@@ -100,6 +100,10 @@ dropdown-tree {
 		list-style-type: none;
 		padding-left: 1em;
 	}
+
+	.focusable:focus {
+		outline: #66afe9 auto 1px;
+	}
 }
 
 /**
