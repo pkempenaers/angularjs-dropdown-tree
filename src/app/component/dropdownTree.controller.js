@@ -55,7 +55,7 @@ export default class DropDownTreeController {
 		}
 		if (angular.isDefined(changes.externalSelection)) {
 			if (angular.isArray(changes.externalSelection)) {
-				this.selectedOptions = this.externalSelection;
+				this.selectedOptions = angular.copy([], this.externalSelection);
 				this.emitSelection();
 			} else {
 				this.$log.error('selection should be an array');
@@ -108,28 +108,14 @@ export default class DropDownTreeController {
 	}
 
 	selectAllVisible() {
-		this.selectedOptions.splice(0, this.selectedOptions.length);
-		this.options.forEach((option) => {
-			this.selectAllChildVisible(option);
-		});
-		this.emitSelection();
-	}
-
-	selectAllChildVisible(option) {
-		if (this.dropdownTreeService.isVisible(option, this.settings, this.searchText)) {
-			if (this.dropdownTreeService.isFolder(option, this.settings)) {
-				if (this.settings.folderSelectable &&
-					this.dropdownTreeService.isVisibleItem(option, this.settings, this.searchText)) {
-					this.selectedOptions.push(option);
-				}
-				this.dropdownTreeService.getChildOptions(option, this.settings)
-				.forEach((childOption) => {
-					this.selectAllChildVisible(childOption);
-				});
-			} else {
-				this.selectedOptions.push(option);
-			}
+		const newSelection =
+			this.dropdownTreeService.getSelection(this.options, this.settings, this.searchText);
+		if (!this.dropdownTreeService.areSameSelections(newSelection, this.selectedOptions)) {
+			this.selectedOptions = newSelection;
+		} else {
+			this.selectedOptions.splice(0, this.selectedOptions.length);
 		}
+		this.emitSelection();
 	}
 
 	emitSelection() {

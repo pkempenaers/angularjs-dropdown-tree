@@ -31,4 +31,39 @@ export default class DropdownTreeService {
 		}
 		return true;
 	}
+
+	getSelection(options, settings, searchText) {
+		let selection = [];
+
+		options.forEach((option) => {
+			selection = selection.concat(this.getAllChildVisible(option, settings, searchText));
+		});
+
+		return selection;
+	}
+
+	getAllChildVisible(option, settings, searchText, selectedCollection = []) {
+		if (this.isVisible(option, settings, searchText)) {
+			if (this.isFolder(option, settings)) {
+				if (settings.folderSelectable &&
+					this.isVisibleItem(option, settings, searchText)) {
+					selectedCollection.push(option);
+				}
+				this.getChildOptions(option, settings)
+				.forEach((childOption) => {
+					this.getAllChildVisible(childOption, settings, searchText, selectedCollection);
+				});
+			} else {
+				selectedCollection.push(option);
+			}
+		}
+		return selectedCollection;
+	}
+
+	areSameSelections(collection, compareCollection) {
+		if (collection.length !== compareCollection.length) {
+			return false;
+		}
+		return !collection.some(option => compareCollection.indexOf(option) < 0);
+	}
 }
