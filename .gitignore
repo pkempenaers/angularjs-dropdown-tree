@@ -5,6 +5,8 @@ coverage/
 .idea/
 .tmp/
 dist/
+docs/
+component/
 
 *.sln
 .vs/
