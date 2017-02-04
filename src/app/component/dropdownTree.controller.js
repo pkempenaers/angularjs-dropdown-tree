@@ -25,6 +25,8 @@ export default class DropDownTreeController {
 		};
 
 		this.settings = {
+			selectionLimit: 0,
+			removeFromFront: true,
 			displayProperty: 'name',
 			childrenProperty: 'children',
 			disableSearch: false,
@@ -102,6 +104,15 @@ export default class DropDownTreeController {
 		if (indexOfOption >= 0) {
 			this.selectedOptions.splice(indexOfOption, 1);
 		} else {
+			if (this.settings.selectionLimit > 0) {
+				if (this.settings.selectionLimit === this.selectedOptions.length) {
+					if (this.settings.removeFromFront) {
+						this.selectedOptions.splice(0, 1);
+					} else {
+						this.selectedOptions.splice(this.selectedOptions.length -1, 1);
+					}
+				}
+			}
 			this.selectedOptions.push(option);
 		}
 		this.emitSelection();
@@ -110,12 +121,14 @@ export default class DropDownTreeController {
 	selectAllVisible() {
 		const newSelection =
 			this.dropdownTreeService.getSelection(this.options, this.settings, this.searchText);
-		if (!this.dropdownTreeService.areSameSelections(newSelection, this.selectedOptions)) {
-			this.selectedOptions = newSelection;
-		} else {
-			this.selectedOptions.splice(0, this.selectedOptions.length);
+		if (this.settings.selectionLimit > 0 && newSelection.length <= this.settings.selectionLimit) {
+			if (!this.dropdownTreeService.areSameSelections(newSelection, this.selectedOptions)) {
+				this.selectedOptions = newSelection;
+			} else {
+				this.selectedOptions.splice(0, this.selectedOptions.length);
+			}
+			this.emitSelection();
 		}
-		this.emitSelection();
 	}
 
 	emitSelection() {
