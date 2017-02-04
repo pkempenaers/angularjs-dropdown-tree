@@ -73,6 +73,8 @@ export default class DropDownTreeController {
 		if (this.open && this.settings.closeOnBlur) {
 			this.closeToggleOnBlurBinded = this.toggleOnBlur.bind(this);
 			this.$document.on('click', this.closeToggleOnBlurBinded);
+		} else {
+			this.$document.off('click', this.closeToggleOnBlurBinded);
 		}
 	}
 
@@ -93,7 +95,6 @@ export default class DropDownTreeController {
 			if (!parentFound) {
 				this.$rootScope.$apply(() => {
 					this.toggleDropdown();
-					this.$document.off('click', this.closeToggleOnBlurBinded);
 				});
 			}
 		}
@@ -109,7 +110,7 @@ export default class DropDownTreeController {
 					if (this.settings.removeFromFront) {
 						this.selectedOptions.splice(0, 1);
 					} else {
-						this.selectedOptions.splice(this.selectedOptions.length -1, 1);
+						this.selectedOptions.splice(this.selectedOptions.length - 1, 1);
 					}
 				}
 			}
