@@ -4,6 +4,8 @@ export default class DropDownTreeController {
 		$document,
 		$element,
 		$rootScope,
+		$compile,
+		$scope,
 		dropdownTreeService,
 	) {
 		'ngInject';
@@ -12,6 +14,8 @@ export default class DropDownTreeController {
 		this.$document = $document;
 		this.$element = $element;
 		this.$rootScope = $rootScope;
+		this.$compile = $compile;
+		this.$scope = $scope;
 		this.dropdownTreeService = dropdownTreeService;
 
 		this.open = false;
@@ -20,11 +24,12 @@ export default class DropDownTreeController {
 
 		this.focusCounter = 0;
 
-		this.texts = {
+		this.defaultTexts = {
 			optionNames: 'items',
 		};
+		this.texts = angular.extend({}, this.defaultTexts);
 
-		this.settings = {
+		this.defaultSettings = {
 			selectionLimit: 0,
 			removeFromFront: true,
 			displayProperty: 'name',
@@ -48,28 +53,39 @@ export default class DropDownTreeController {
 				'glyphicon',
 				'glyphicon-file',
 			],
+			appendToElement: this.$element.children(),
 		};
+
+		this.settings = angular.extend({}, this.defaultSettings);
 	}
 
 	$onChanges(changes) {
 		if (angular.isDefined(changes.externalTexts)) {
-			angular.extend(this.texts, this.externalTexts);
+			this.texts = angular.extend({}, this.defaultTexts, this.externalTexts);
 		}
 		if (angular.isDefined(changes.externalSelection)) {
 			if (angular.isArray(changes.externalSelection)) {
-				this.selectedOptions = angular.copy([], this.externalSelection);
+				this.selectedOptions = angular.extend([], this.externalSelection);
 				this.emitSelection();
 			} else {
 				this.$log.error('selection should be an array');
 			}
 		}
 		if (angular.isDefined(changes.externalSettings)) {
-			angular.extend(this.settings, this.externalSettings);
+			this.settings = angular.extend({}, this.defaultSettings, this.externalSettings);
 		}
 	}
 
 	toggleDropdown() {
 		this.open = !this.open;
+		if (this.open) {
+			this.$compile('<dt-dropdown-menu></dt-dropdown-menu>'.trim())(this.$scope, (element) => {
+				this.appendelement = element;
+				this.settings.appendToElement.append(this.appendelement);
+			});
+		} else {
+			this.appendelement.remove();
+		}
 		if (this.open && this.settings.closeOnBlur) {
 			this.closeToggleOnBlurBinded = this.toggleOnBlur.bind(this);
 			this.$document.on('click', this.closeToggleOnBlurBinded);

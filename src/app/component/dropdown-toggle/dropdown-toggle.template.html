@@ -1,0 +1,10 @@
+<button class="dropdown-toggle btn btn-default"
+				ng-click="$ctrl.toggleDropdown()"
+				ng-keydown="$ctrl.dropdownToggleKeyDown($event)">
+	<span ng-if="$ctrl.selectedOptions.length === 0">
+		Select {{$ctrl.texts.optionNames}}
+	</span>
+	<span ng-if="$ctrl.selectedOptions.length > 0">
+		{{$ctrl.selectedOptions.length}} {{$ctrl.texts.optionNames}} selected
+	</span>
+</button>
