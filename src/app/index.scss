@@ -79,13 +79,13 @@ dropdown-tree {
 		width: 100%;
 		border-radius: 0;
 	}
+}
 
-	.dropdown-menu {
-		width: 100%;
-		border-radius: 0;
-		margin-top: 0;
-	}
-
+.dropdown-menu {
+	display: block;
+	width: 100%;
+	border-radius: 0;
+	margin-top: 0;
 	.top-menu {
 		margin-bottom: 0.5em;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.15);

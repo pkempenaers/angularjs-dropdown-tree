@@ -4,6 +4,8 @@ export default class DropDownTreeController {
 		$document,
 		$element,
 		$rootScope,
+		$compile,
+		$scope,
 		dropdownTreeService,
 	) {
 		'ngInject';
@@ -12,6 +14,8 @@ export default class DropDownTreeController {
 		this.$document = $document;
 		this.$element = $element;
 		this.$rootScope = $rootScope;
+		this.$compile = $compile;
+		this.$scope = $scope;
 		this.dropdownTreeService = dropdownTreeService;
 
 		this.open = false;
@@ -20,11 +24,14 @@ export default class DropDownTreeController {
 
 		this.focusCounter = 0;
 
-		this.texts = {
+		this.defaultTexts = {
 			optionNames: 'items',
 		};
+		this.texts = angular.extend({}, this.defaultTexts);
 
-		this.settings = {
+		this.defaultSettings = {
+			selectionLimit: 0,
+			removeFromFront: true,
 			displayProperty: 'name',
 			childrenProperty: 'children',
 			disableSearch: false,
@@ -46,31 +53,44 @@ export default class DropDownTreeController {
 				'glyphicon',
 				'glyphicon-file',
 			],
+			appendToElement: this.$element.children(),
 		};
+
+		this.settings = angular.extend({}, this.defaultSettings);
 	}
 
 	$onChanges(changes) {
 		if (angular.isDefined(changes.externalTexts)) {
-			angular.extend(this.texts, this.externalTexts);
+			this.texts = angular.extend({}, this.defaultTexts, this.externalTexts);
 		}
 		if (angular.isDefined(changes.externalSelection)) {
 			if (angular.isArray(changes.externalSelection)) {
-				this.selectedOptions = angular.copy([], this.externalSelection);
+				this.selectedOptions = angular.extend([], this.externalSelection);
 				this.emitSelection();
 			} else {
 				this.$log.error('selection should be an array');
 			}
 		}
 		if (angular.isDefined(changes.externalSettings)) {
-			angular.extend(this.settings, this.externalSettings);
+			this.settings = angular.extend({}, this.defaultSettings, this.externalSettings);
 		}
 	}
 
 	toggleDropdown() {
 		this.open = !this.open;
+		if (this.open) {
+			this.$compile('<dt-dropdown-menu></dt-dropdown-menu>'.trim())(this.$scope, (element) => {
+				this.appendelement = element;
+				this.settings.appendToElement.append(this.appendelement);
+			});
+		} else {
+			this.appendelement.remove();
+		}
 		if (this.open && this.settings.closeOnBlur) {
 			this.closeToggleOnBlurBinded = this.toggleOnBlur.bind(this);
 			this.$document.on('click', this.closeToggleOnBlurBinded);
+		} else {
+			this.$document.off('click', this.closeToggleOnBlurBinded);
 		}
 	}
 
@@ -91,7 +111,6 @@ export default class DropDownTreeController {
 			if (!parentFound) {
 				this.$rootScope.$apply(() => {
 					this.toggleDropdown();
-					this.$document.off('click', this.closeToggleOnBlurBinded);
 				});
 			}
 		}
@@ -102,6 +121,15 @@ export default class DropDownTreeController {
 		if (indexOfOption >= 0) {
 			this.selectedOptions.splice(indexOfOption, 1);
 		} else {
+			if (this.settings.selectionLimit > 0) {
+				if (this.settings.selectionLimit === this.selectedOptions.length) {
+					if (this.settings.removeFromFront) {
+						this.selectedOptions.splice(0, 1);
+					} else {
+						this.selectedOptions.splice(this.selectedOptions.length - 1, 1);
+					}
+				}
+			}
 			this.selectedOptions.push(option);
 		}
 		this.emitSelection();
@@ -110,12 +138,14 @@ export default class DropDownTreeController {
 	selectAllVisible() {
 		const newSelection =
 			this.dropdownTreeService.getSelection(this.options, this.settings, this.searchText);
-		if (!this.dropdownTreeService.areSameSelections(newSelection, this.selectedOptions)) {
-			this.selectedOptions = newSelection;
-		} else {
-			this.selectedOptions.splice(0, this.selectedOptions.length);
+		if (this.settings.selectionLimit > 0 && newSelection.length <= this.settings.selectionLimit) {
+			if (!this.dropdownTreeService.areSameSelections(newSelection, this.selectedOptions)) {
+				this.selectedOptions = newSelection;
+			} else {
+				this.selectedOptions.splice(0, this.selectedOptions.length);
+			}
+			this.emitSelection();
 		}
-		this.emitSelection();
 	}
 
 	emitSelection() {

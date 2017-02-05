@@ -21,6 +21,7 @@ export default class MainController {
 		];
 
 		this.settings = {
+			selectionLimit: 2,
 		};
 	}
 
