@@ -51,6 +51,14 @@ main {
 			color: #2e7bcf;
 		}
 	}
+
+	.example-settings {
+		display: flex;
+		> div:not(:last-child) {
+			margin-right: 1em;
+			flex-basis: 50%;
+		}
+	}
 }
 
 header {
