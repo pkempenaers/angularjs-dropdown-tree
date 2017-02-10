@@ -15,12 +15,76 @@
 		AngularJS dropdown tree is a dropdown selection component specificaly build for options that can be ordered in a tree structure.
 		On this page you can find a simple example and some documentation on how to configure the component.
 	</p>
-	<div>
+	<div class="example">
 		<h2>Examlpe</h2>
 		<dropdown-tree options="$ctrl.options"
 									 selection-changed="$ctrl.selectionChanged(selection)"
 									 settings="$ctrl.settings">
 		</dropdown-tree>
+		<div class="example-settings">
+			<div>
+				<h2>Example options</h2>
+				<pre>{{$ctrl.options | json}}</pre>
+			</div>
+			<div>
+				<h2>Example settings</h2>
+				<div>
+					<div>
+						<label>
+							selectionLimit:
+							<input ng-model="$ctrl.settings.selectionLimit"
+										 ng-change="$ctrl.changeSettings()" />
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.removeFromFront"
+										 ng-change="$ctrl.changeSettings()" />
+							removeFromFront
+						</label>
+					</div>
+					<div>
+						<label>
+							displayProperty:
+							<input ng-model="$ctrl.settings.displayProperty"
+										 ng-change="$ctrl.changeSettings()" />
+						</label>
+					</div>
+					<div>
+						<label>
+							childrenProperty:
+							<input ng-model="$ctrl.settings.childrenProperty"
+										 ng-change="$ctrl.changeSettings()" />
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.disableSearch"
+										 ng-change="$ctrl.changeSettings()" />
+							disableSearch
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.closeOnBlur"
+										 ng-change="$ctrl.changeSettings()" />
+							closeOnBlur
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.folderSelectable"
+										 ng-change="$ctrl.changeSettings()" />
+							folderSelectable
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div>
 		<h2>Documentation</h2>
