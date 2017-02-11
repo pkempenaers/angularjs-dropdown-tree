@@ -1,7 +1,25 @@
 {
+	"author": "Pieter Kempenaers <pieter.kempenaers@gmail.com>",
   "name": "angularjs-dropdown-tree",
-  "version": "0.0.0",
-  "dependencies": {},
+  "version": "0.0.1",
+  "dependencies": {
+		"angular": "~1.5"
+  },
+	"main": "dist/scripts/app.js",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/pkempenaers/angularjs-dropdown-tree.git"
+	},
+	"description": "AngularJS Dropdown treeselect component",
+	"homepage": "https://pkempenaers.github.io/angularjs-dropdown-tree/index.html",
+	"keywords": [
+		"angularjs",
+		"dropdown",
+		"select",
+		"treeview"
+	],
+	"bugs": "https://github.com/pkempenaers/angularjs-dropdown-tree/issues",
   "scripts": {
     "test": "gulp test"
   },
