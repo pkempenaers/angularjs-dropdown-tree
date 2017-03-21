@@ -23,7 +23,7 @@ export default class OptionRow {
 	}
 
 	innerClicked(option) {
-		this.optionClicked({option});
+		this.optionClicked({ option });
 	}
 
 	isSelected() {
