@@ -12,7 +12,7 @@
 		<dropdown-tree-option-row ng-repeat="option in $ctrl.options track by $index"
 															option="option"
 															settings="$ctrl.settings"
-															option-clicked="$ctrl.optionClicked(innerOption)"
+															option-clicked="$ctrl.optionClicked(option)"
 															selected-options="$ctrl.selectedOptions"
 															focus-next="$ctrl.focusNext()"
 															focus-previous="$ctrl.focusPrevious()"

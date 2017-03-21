@@ -23,7 +23,7 @@ export default class OptionRow {
 	}
 
 	innerClicked(option) {
-		this.optionClicked(option);
+		this.optionClicked({option});
 	}
 
 	isSelected() {
@@ -42,7 +42,7 @@ export default class OptionRow {
 		switch (event.key) {
 		case 'Enter':
 			if (!this.isFolder() || this.settings.folderSelectable) {
-				this.innerClicked({ innerOption: this.option });
+				this.innerClicked(this.option);
 				event.preventDefault();
 			}
 			break;
