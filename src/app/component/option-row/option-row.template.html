@@ -12,7 +12,7 @@
 			<span ng-if="!$ctrl.isFolder()"
 						ng-class="$ctrl.settings.childClass"></span>
 			<span tabindex="-1" 
-					 ng-click="(!$ctrl.isFolder() || $ctrl.settings.folderSelectable) && $ctrl.innerClicked({innerOption: $ctrl.option})"
+					 ng-click="(!$ctrl.isFolder() || $ctrl.settings.folderSelectable) && $ctrl.innerClicked($ctrl.option)"
 					 ng-keydown="$ctrl.keyDown($event)"
 					 class="focusable">
 				{{$ctrl.getDisplayText()}}
@@ -23,11 +23,11 @@
 			<dropdown-tree-option-row ng-repeat="option in $ctrl.getChildOptions() track by $index"
 																option="option"
 																settings="$ctrl.settings"
-																option-clicked="$ctrl.innerClicked({innerOption: option})"
+																option-clicked="$ctrl.innerClicked(option)"
 																selected-options="$ctrl.selectedOptions"
 																focus-next="$ctrl.focusNext()"
 																focus-previous="$ctrl.focusPrevious()"
-																catch-keydown="$ctrl.catchKeydown(event)"
+																catch-keydown="$ctrl.keyDown(event)"
 																search-text="{{$ctrl.searchText}}">
 			</dropdown-tree-option-row>
 		</ul>

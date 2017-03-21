@@ -64,7 +64,7 @@ export default class DropDownTreeController {
 			this.texts = angular.extend({}, this.defaultTexts, this.externalTexts);
 		}
 		if (angular.isDefined(changes.externalSelection)) {
-			if (angular.isArray(changes.externalSelection)) {
+			if (angular.isArray(this.externalSelection)) {
 				this.selectedOptions = angular.extend([], this.externalSelection);
 				this.emitSelection();
 			} else {
@@ -161,7 +161,7 @@ export default class DropDownTreeController {
 			}
 			break;
 		default:
-			this.catchKeyDown(event);
+			this.catchKeydown(event);
 		}
 	}
 
@@ -180,11 +180,11 @@ export default class DropDownTreeController {
 			event.preventDefault();
 			break;
 		default:
-			this.catchKeyDown(event);
+			this.catchKeydown(event);
 		}
 	}
 
-	catchKeyDown(event) {
+	catchKeydown(event) {
 		switch (event.key) {
 		case 'Escape':
 			if (this.open) {
