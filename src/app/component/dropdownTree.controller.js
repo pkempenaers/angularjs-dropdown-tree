@@ -64,7 +64,7 @@ export default class DropDownTreeController {
 			this.texts = angular.extend({}, this.defaultTexts, this.externalTexts);
 		}
 		if (angular.isDefined(changes.externalSelection)) {
-			if (angular.isArray(changes.externalSelection)) {
+			if (angular.isArray(this.externalSelection)) {
 				this.selectedOptions = angular.extend([], this.externalSelection);
 				this.emitSelection();
 			} else {
