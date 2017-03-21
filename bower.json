@@ -12,7 +12,7 @@
 		"treeview"
 	],
 	"license": "MIT",
-	"main": "dist/scripts/app.js",
+	"main": "component/component.js",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/pkempenaers/angularjs-dropdown-tree.git"
