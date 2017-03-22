@@ -66,7 +66,6 @@ export default class DropDownTreeController {
 		if (angular.isDefined(changes.externalSelection)) {
 			if (angular.isArray(this.externalSelection)) {
 				this.selectedOptions = angular.extend([], this.externalSelection);
-				this.emitSelection();
 			} else {
 				this.$log.error('selection should be an array');
 			}
@@ -149,6 +148,12 @@ export default class DropDownTreeController {
 	}
 
 	emitSelection() {
+		if (angular.isArray(this.externalSelection)) {
+			this.externalSelection.splice(0, this.externalSelection.length);
+			this.selectedOptions.forEach((selectedOption) => {
+				this.externalSelection.push(selectedOption);
+			});
+		}
 		this.selectionChanged({ selection: this.selectedOptions });
 	}
 
