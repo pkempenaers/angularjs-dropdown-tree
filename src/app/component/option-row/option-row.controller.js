@@ -1,4 +1,4 @@
-export default class OptionRow {
+﻿export default class OptionRow {
 	constructor(
 		dropdownTreeService,
 	) {
@@ -40,23 +40,23 @@ export default class OptionRow {
 
 	keyDown(event) {
 		switch (event.key) {
-		case 'Enter':
-			if (!this.isFolder() || this.settings.folderSelectable) {
-				this.innerClicked(this.option);
+			case 'Enter':
+				if (!this.isFolder() || this.settings.folderSelectable) {
+					this.innerClicked(this.option);
+					event.preventDefault();
+				}
+				break;
+			case 'ArrowDown':
+				this.focusNext();
 				event.preventDefault();
-			}
-			break;
-		case 'ArrowDown':
-			this.focusNext();
-			event.preventDefault();
-			break;
-		case 'ArrowUp':
-			this.focusPrevious();
-			event.preventDefault();
-			break;
-		default:
-			this.catchKeydown({ event });
-			break;
+				break;
+			case 'ArrowUp':
+				this.focusPrevious();
+				event.preventDefault();
+				break;
+			default:
+				this.catchKeydown({ event });
+				break;
 		}
 	}
 }

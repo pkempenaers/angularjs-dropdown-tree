@@ -1,4 +1,4 @@
-export default class DropDownTreeController {
+﻿export default class DropDownTreeController {
 	constructor(
 		$log,
 		$document,
@@ -52,6 +52,9 @@ export default class DropDownTreeController {
 			childClass: [
 				'glyphicon',
 				'glyphicon-file',
+			],
+			dropdownToggleIconClass: [
+				'caret',
 			],
 			appendToElement: this.$element.children(),
 		};
@@ -159,47 +162,47 @@ export default class DropDownTreeController {
 
 	dropdownToggleKeyDown(event) {
 		switch (event.key) {
-		case 'ArrowDown':
-			if (this.open) {
-				this.focusFirst();
-				event.preventDefault();
-			}
-			break;
-		default:
-			this.catchKeydown(event);
+			case 'ArrowDown':
+				if (this.open) {
+					this.focusFirst();
+					event.preventDefault();
+				}
+				break;
+			default:
+				this.catchKeydown(event);
 		}
 	}
 
 	searchKeydown(event) {
 		switch (event.key) {
-		case 'ArrowDown':
-			this.focusNext();
-			event.preventDefault();
-			break;
-		case 'ArrowUp':
-			this.focusSelf();
-			event.preventDefault();
-			break;
-		case 'Enter':
-			this.selectAllVisible();
-			event.preventDefault();
-			break;
-		default:
-			this.catchKeydown(event);
+			case 'ArrowDown':
+				this.focusNext();
+				event.preventDefault();
+				break;
+			case 'ArrowUp':
+				this.focusSelf();
+				event.preventDefault();
+				break;
+			case 'Enter':
+				this.selectAllVisible();
+				event.preventDefault();
+				break;
+			default:
+				this.catchKeydown(event);
 		}
 	}
 
 	catchKeydown(event) {
 		switch (event.key) {
-		case 'Escape':
-			if (this.open) {
-				this.toggleDropdown();
-				this.focusSelf();
-				event.preventDefault();
-			}
-			break;
-		default:
-			break;
+			case 'Escape':
+				if (this.open) {
+					this.toggleDropdown();
+					this.focusSelf();
+					event.preventDefault();
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
