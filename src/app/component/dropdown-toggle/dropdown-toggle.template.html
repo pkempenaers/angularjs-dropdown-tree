@@ -2,12 +2,7 @@
 				ng-click="$ctrl.toggleDropdown()"
 				ng-keydown="$ctrl.dropdownToggleKeyDown($event)">
 	<span class="selection-text">
-		<span ng-if="$ctrl.selectedOptions.length === 0">
-			Select {{$ctrl.texts.optionNames}}
-		</span>
-		<span ng-if="$ctrl.selectedOptions.length > 0">
-			{{$ctrl.selectedOptions.length}} {{$ctrl.texts.optionNames}} selected
-		</span>
+		{{$ctrl.getButtonText()}}
 	</span>
 	<span ng-class="$ctrl.settings.dropdownToggleIconClass"></span>
 </button>

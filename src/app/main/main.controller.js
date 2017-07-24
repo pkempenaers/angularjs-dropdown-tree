@@ -1,4 +1,4 @@
-export default class MainController {
+﻿export default class MainController {
 	constructor($log) {
 		'ngInject';
 
@@ -37,6 +37,12 @@ export default class MainController {
 			disableSearch: false,
 			closeOnBlur: true,
 			folderSelectable: true,
+			getButtonText(selection) {
+				if (selection.length > 0) {
+					return selection.map(v => v.name).join(', ');
+				}
+				return 'Select items';
+			},
 		};
 	}
 

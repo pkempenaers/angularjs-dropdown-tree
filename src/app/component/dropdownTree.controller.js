@@ -78,6 +78,13 @@
 		}
 	}
 
+	$doCheck() {
+		if (angular.isDefined(this.externalSelection) &&
+			!this.dropdownTreeService.areSameSelections(this.externalSelection, this.selectedOptions)) {
+			this.selectedOptions = angular.extend([], this.externalSelection);
+		}
+	}
+
 	toggleDropdown() {
 		this.open = !this.open;
 		if (this.open) {
@@ -238,5 +245,15 @@
 
 	focusSelf() {
 		this.$element.find('button')[0].focus();
+	}
+
+	getButtonText() {
+		if (angular.isFunction(this.settings.getButtonText)) {
+			return this.settings.getButtonText(this.selectedOptions, this.options);
+		}
+		if (this.selectedOptions.length === 0) {
+			return `Select ${this.texts.optionNames}`;
+		}
+		return `${this.selectedOptions.length} ${this.texts.optionNames} selected`;
 	}
 }
