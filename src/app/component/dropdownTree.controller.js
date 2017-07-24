@@ -249,7 +249,7 @@
 
 	getButtonText() {
 		if (angular.isFunction(this.settings.getButtonText)) {
-			return this.settings.getButtonText(this.selectedOptions, this.options);
+			return this.settings.getButtonText(this.selectedOptions, this.options, this.texts);
 		}
 		if (this.selectedOptions.length === 0) {
 			return `Select ${this.texts.optionNames}`;
