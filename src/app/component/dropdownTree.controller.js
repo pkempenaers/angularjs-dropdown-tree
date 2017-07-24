@@ -78,6 +78,13 @@
 		}
 	}
 
+	$doCheck() {
+		if (angular.isDefined(this.externalSelection) &&
+			!this.dropdownTreeService.areSameSelections(this.externalSelection, this.selectedOptions)) {
+			this.selectedOptions = angular.extend([], this.externalSelection);
+		}
+	}
+
 	toggleDropdown() {
 		this.open = !this.open;
 		if (this.open) {
