@@ -7,8 +7,15 @@ export default class DropdownTreeService {
 	}
 
 	isFolder(option, settings) {
-		return Object.prototype.hasOwnProperty.call(option, settings.childrenProperty) &&
-			angular.isArray(option[settings.childrenProperty]);
+		return (Object.prototype.hasOwnProperty.call(option, settings.childrenProperty) &&
+			angular.isArray(option[settings.childrenProperty])) ||
+			(Object.prototype.hasOwnProperty.call(option, settings.subProperty) &&
+				angular.isArray(option[settings.subProperty]));
+	}
+
+	isSubFolder(option, settings) {
+		return Object.prototype.hasOwnProperty.call(option, settings.subProperty) &&
+				angular.isArray(option[settings.subProperty]);
 	}
 
 	shouldFolderBeOpen(folder, settings, selection) {
@@ -24,13 +31,18 @@ export default class DropdownTreeService {
 	}
 
 	getChildOptions(option, settings) {
-		return option[settings.childrenProperty];
+		if (angular.isDefined(option[settings.childrenProperty])) {
+			return option[settings.childrenProperty];
+		} else if (angular.isDefined(option[settings.subProperty])) {
+			return option[settings.subProperty];
+		}
+		return undefined;
 	}
 
 	isVisible(option, settings, searchText) {
-		if (option[settings.childrenProperty] &&
+		if (this.isFolder(option, settings) &&
 			!this.isVisibleItem(option, settings, searchText)) {
-			return option[settings.childrenProperty]
+			return this.getChildOptions(option, settings)
 				.some(childOption => this.isVisible(childOption, settings, searchText));
 		}
 		return this.isVisibleItem(option, settings, searchText);

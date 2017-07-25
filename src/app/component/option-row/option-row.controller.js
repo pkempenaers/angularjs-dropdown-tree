@@ -22,6 +22,10 @@
 		return this.dropdownTreeService.isFolder(this.option, this.settings);
 	}
 
+	isSubFolder() {
+		return this.dropdownTreeService.isSubFolder(this.option, this.settings);
+	}
+
 	getChildOptions() {
 		return this.dropdownTreeService.getChildOptions(this.option, this.settings);
 	}
