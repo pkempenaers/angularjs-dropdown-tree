@@ -57,6 +57,7 @@
 			appendToElement: this.$element.children(),
 			foldersOpen: true,
 			openFolderWhenInnerSelected: false,
+			closeOnSelectionLimitReached: false,
 		};
 
 		this.settings = angular.extend({}, this.defaultSettings);
@@ -165,6 +166,11 @@
 			});
 		}
 		this.selectionChanged({ selection: this.selectedOptions });
+		if (this.settings.closeOnSelectionLimitReached &&
+			this.settings.selectionLimit !== 0 &&
+			this.selectedOptions.length === this.settings.selectionLimit) {
+			this.toggleDropdown();
+		}
 	}
 
 	dropdownToggleKeyDown(event) {

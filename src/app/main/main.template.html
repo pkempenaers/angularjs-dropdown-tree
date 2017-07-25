@@ -105,6 +105,14 @@
 							folderSelectable
 						</label>
 					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.closeOnSelectionLimitReached"
+										 ng-change="$ctrl.changeSettings()" />
+							closeOnSelectionLimitReached
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -275,6 +283,14 @@
 						<td>boolean</td>
 						<td>
 							Only applicable when foldersOpen set to false. Will still open a folder when a child is selected.
+						</td>
+					</tr>
+					<tr>
+						<td>closeOnSelectionLimitReached</td>
+						<td>false</td>
+						<td>boolean</td>
+						<td>
+							Only applicable when selectionLimit different from 0. Will close the dropdown when selection reaches the specified selectionLimit
 						</td>
 					</tr>
 				</tbody>
