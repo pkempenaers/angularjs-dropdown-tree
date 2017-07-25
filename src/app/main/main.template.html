@@ -83,6 +83,13 @@
 					</div>
 					<div>
 						<label>
+							subProperty:
+							<input ng-model="$ctrl.settings.subProperty"
+										 ng-change="$ctrl.changeSettings()" />
+						</label>
+					</div>
+					<div>
+						<label>
 							<input type="checkbox"
 										 ng-model="$ctrl.settings.disableSearch"
 										 ng-change="$ctrl.changeSettings()" />
@@ -223,6 +230,12 @@
 						<td>The property that holds the child options.</td>
 					</tr>
 					<tr>
+						<td>subProperty</td>
+						<td>null</td>
+						<td>string</td>
+						<td>The property that holds the subFolder options. These will be displayed using the subClass and subClosedClass. The childrenProperty will always be taken first so an option will never be a folder and a subFolder</td>
+					</tr>
+					<tr>
 						<td>selectedClass</td>
 						<td>['glyphicon', 'glyphicon-ok']</td>
 						<td>string or array of string</td>
@@ -239,6 +252,18 @@
 						<td>['glyphicon', 'glyphicon-folder-close']</td>
 						<td>string or array of strings</td>
 						<td>Class of the span before the name of an option when the option is a folder and the folder is closed</td>
+					</tr>
+					<tr>
+						<td>subClass</td>
+						<td>['glyphicon', 'glyphicon-minus']</td>
+						<td>string or array of strings</td>
+						<td>Class of the span before the name of an option when the option is a subFolder and the subFolder is opened</td>
+					</tr>
+					<tr>
+						<td>subClosedClass</td>
+						<td>['glyphicon', 'glyphicon-plus']</td>
+						<td>string or array of strings</td>
+						<td>Class of the span before the name of an option when the option is a subFolder and the subFolder is closed</td>
 					</tr>
 					<tr>
 						<td>childClass</td>

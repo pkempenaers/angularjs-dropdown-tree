@@ -26,6 +26,16 @@
 					{
 						name: 'd',
 						label: 'test child option d',
+						subChildren: [
+							{
+								name: 'cc',
+								label: 'test child option c',
+							},
+							{
+								name: 'ff',
+								label: 'test child option f',
+							},
+						],
 					},
 				],
 				childoptions: [
@@ -42,6 +52,7 @@
 			removeFromFront: true,
 			displayProperty: 'name',
 			childrenProperty: 'children',
+			subProperty: 'subChildren',
 			disableSearch: false,
 			closeOnBlur: true,
 			folderSelectable: true,

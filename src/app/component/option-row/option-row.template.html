@@ -6,9 +6,12 @@
 		<div class="title">
 			<span ng-if="$ctrl.isSelected()"
 						ng-class="$ctrl.settings.selectedClass"></span>
-			<span ng-if="$ctrl.isFolder()"
+			<span ng-if="$ctrl.isFolder() && !$ctrl.isSubFolder()"
 						ng-click="$ctrl.toggleFolder()"
 						ng-class="$ctrl.isOpen ? $ctrl.settings.folderClass : $ctrl.settings.folderClosedClass"></span>
+			<span ng-if="$ctrl.isFolder() && $ctrl.isSubFolder()"
+						ng-click="$ctrl.toggleFolder()"
+						ng-class="$ctrl.isOpen ? $ctrl.settings.subClass : $ctrl.settings.subClosedClass"></span>
 			<span ng-if="!$ctrl.isFolder()"
 						ng-class="$ctrl.settings.childClass"></span>
 			<span tabindex="-1" 

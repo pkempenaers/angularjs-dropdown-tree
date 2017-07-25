@@ -32,6 +32,7 @@
 			removeFromFront: true,
 			displayProperty: 'name',
 			childrenProperty: 'children',
+			subProperty: null,
 			disableSearch: false,
 			closeOnBlur: true,
 			folderSelectable: true,
@@ -46,6 +47,14 @@
 			folderClosedClass: [
 				'glyphicon',
 				'glyphicon-folder-close',
+			],
+			subClass: [
+				'glyphicon',
+				'glyphicon-minus',
+			],
+			subClosedClass: [
+				'glyphicon',
+				'glyphicon-plus',
 			],
 			childClass: [
 				'glyphicon',
