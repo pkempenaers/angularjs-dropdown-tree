@@ -43,6 +43,7 @@
 				}
 				return 'Select items';
 			},
+			closeOnSelectionLimitReached: false,
 		};
 	}
 
