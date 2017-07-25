@@ -27,6 +27,9 @@
 	}
 
 	innerClicked(option) {
+		if (this.selectedOptions.indexOf(option) < 0 && this.settings.openFolderWhenInnerSelected) {
+			this.isOpen = true;
+		}
 		this.optionClicked({ option });
 	}
 
