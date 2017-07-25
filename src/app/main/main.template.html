@@ -261,6 +261,22 @@
 							Should return the string that you want to display in the dropdown toggle. Is called with as first argument the current selection, second argument the selection-array and third argument the texts object.
 						</td>
 					</tr>
+					<tr>
+						<td>foldersOpen</td>
+						<td>true</td>
+						<td>boolean</td>
+						<td>
+							Defines if all folders should be open by default.
+						</td>
+					</tr>
+					<tr>
+						<td>openFolderWhenInnerSelected</td>
+						<td>false</td>
+						<td>boolean</td>
+						<td>
+							Only applicable when foldersOpen set to false. Will still open a folder when a child is selected.
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -294,6 +310,8 @@
 					<li>Navigate between options with arrow keys.</li>
 					<li>Selecting options using Enter.</li>
 					<li>Closing dropdown using Escape.</li>
+					<li>Opening folder with right arrow key</li>
+					<li>Closing folder with left arrow key</li>
 				</ul>
 				Also some more advanced controls are available:
 				<ul>

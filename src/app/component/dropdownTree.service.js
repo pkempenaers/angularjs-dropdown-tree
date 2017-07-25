@@ -1,4 +1,4 @@
-/*
+﻿/*
 	eslint class-methods-use-this: "off"
 */
 export default class DropdownTreeService {
@@ -9,6 +9,18 @@ export default class DropdownTreeService {
 	isFolder(option, settings) {
 		return Object.prototype.hasOwnProperty.call(option, settings.childrenProperty) &&
 			angular.isArray(option[settings.childrenProperty]);
+	}
+
+	shouldFolderBeOpen(folder, settings, selection) {
+		// always open when foldersOpen is true
+		if (settings.foldersOpen) {
+			return settings.foldersOpen;
+		}
+		// always closed when not open when innerselected
+		if (!settings.openFolderWhenInnerSelected) {
+			return false;
+		}
+		return this.hasInnerSelection(folder, settings, selection);
 	}
 
 	getChildOptions(option, settings) {
@@ -30,6 +42,18 @@ export default class DropdownTreeService {
 				.indexOf(searchText.trim().toLowerCase()) >= 0;
 		}
 		return true;
+	}
+
+	hasInnerSelection(option, settings, selection) {
+		if (this.isFolder(option, settings)) {
+			return this.getChildOptions(option, settings).some((childOption) => {
+				if (selection.indexOf(childOption) >= 0) {
+					return true;
+				}
+				return this.hasInnerSelection(childOption, settings, selection);
+			});
+		}
+		return false;
 	}
 
 	getSelection(options, settings, searchText) {

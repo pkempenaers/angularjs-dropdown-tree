@@ -1,12 +1,16 @@
 ﻿export default class OptionRow {
 	constructor(
 		dropdownTreeService,
+		$element,
 	) {
 		'ngInject';
 
 		this.dropdownTreeService = dropdownTreeService;
+		this.$element = $element;
+
 		if (this.isFolder()) {
-			this.isOpen = true;
+			this.isOpen = this.dropdownTreeService
+				.shouldFolderBeOpen(this.option, this.settings, this.selectedOptions);
 		}
 	}
 
@@ -32,6 +36,7 @@
 
 	toggleFolder() {
 		this.isOpen = !this.isOpen;
+		this.$element[0].querySelectorAll('.focusable')[0].focus();
 	}
 
 	shouldBeVisible() {
@@ -53,6 +58,18 @@
 			case 'ArrowUp':
 				this.focusPrevious();
 				event.preventDefault();
+				break;
+			case 'ArrowRight':
+				if (this.isFolder()) {
+					this.isOpen = true;
+					event.preventDefault();
+				}
+				break;
+			case 'ArrowLeft':
+				if (this.isFolder()) {
+					this.isOpen = false;
+					event.preventDefault();
+				}
 				break;
 			default:
 				this.catchKeydown({ event });

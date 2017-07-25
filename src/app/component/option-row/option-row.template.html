@@ -1,4 +1,4 @@
-<li ng-if="$ctrl.shouldBeVisible()">
+﻿<li ng-if="$ctrl.shouldBeVisible()">
 	<div class="option"
 			 ng-class="[
 				{'folder': $ctrl.isFolder()},
@@ -28,6 +28,7 @@
 																focus-next="$ctrl.focusNext()"
 																focus-previous="$ctrl.focusPrevious()"
 																catch-keydown="$ctrl.keyDown(event)"
+																reset-focus-counter="$ctrl.resetFocusCounter(element)"
 																search-text="{{$ctrl.searchText}}">
 			</dropdown-tree-option-row>
 		</ul>
