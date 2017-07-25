@@ -55,6 +55,18 @@
 				this.focusPrevious();
 				event.preventDefault();
 				break;
+			case 'ArrowRight':
+				if (this.isFolder()) {
+					this.isOpen = true;
+					event.preventDefault();
+				}
+				break;
+			case 'ArrowLeft':
+				if (this.isFolder()) {
+					this.isOpen = false;
+					event.preventDefault();
+				}
+				break;
 			default:
 				this.catchKeydown({ event });
 				break;
