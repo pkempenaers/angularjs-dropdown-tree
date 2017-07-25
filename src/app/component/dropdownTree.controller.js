@@ -58,6 +58,7 @@
 			],
 			appendToElement: this.$element.children(),
 			foldersOpen: true,
+			openFolderWhenInnerSelected: false,
 		};
 
 		this.settings = angular.extend({}, this.defaultSettings);

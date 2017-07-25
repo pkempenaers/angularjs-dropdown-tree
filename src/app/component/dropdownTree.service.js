@@ -11,8 +11,16 @@ export default class DropdownTreeService {
 			angular.isArray(option[settings.childrenProperty]);
 	}
 
-	shouldFolderBeOpen(folder, settings) {
-		return settings.foldersOpen;
+	shouldFolderBeOpen(folder, settings, selection) {
+		// always open when foldersOpen is true
+		if (settings.foldersOpen) {
+			return settings.foldersOpen;
+		}
+		// always closed when not open when innerselected
+		if (!settings.openFolderWhenInnerSelected) {
+			return false;
+		}
+		return this.hasInnerSelection(folder, settings, selection);
 	}
 
 	getChildOptions(option, settings) {
@@ -34,6 +42,18 @@ export default class DropdownTreeService {
 				.indexOf(searchText.trim().toLowerCase()) >= 0;
 		}
 		return true;
+	}
+
+	hasInnerSelection(option, settings, selection) {
+		if (this.isFolder(option, settings)) {
+			return this.getChildOptions(option, settings).some((childOption) => {
+				if (selection.indexOf(childOption) >= 0) {
+					return true;
+				}
+				return this.hasInnerSelection(childOption, settings, selection);
+			});
+		}
+		return false;
 	}
 
 	getSelection(options, settings, searchText) {
