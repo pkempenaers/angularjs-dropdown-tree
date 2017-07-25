@@ -9,7 +9,7 @@
 					 ng-keydown="$ctrl.searchKeydown($event)" />
 	</div>
 	<ul>
-		<dropdown-tree-option-row ng-repeat="option in $ctrl.options track by $index"
+		<dropdown-tree-option-row ng-repeat="option in $ctrl.options | orderBy:$ctrl.settings.displayProperty:false:$ctrl.customCompare track by $index"
 															option="option"
 															settings="$ctrl.settings"
 															option-clicked="$ctrl.optionClicked(option)"
@@ -18,7 +18,8 @@
 															focus-previous="$ctrl.focusPrevious()"
 															catch-keydown="$ctrl.catchKeydown(event)"
 															reset-focus-counter="$ctrl.resetFocusCounter(element)"
-															search-text="{{$ctrl.searchText}}">
+															search-text="{{$ctrl.searchText}}"
+															custom-compare="$ctrl.customCompare">
 		</dropdown-tree-option-row>
 	</ul>
 </div>

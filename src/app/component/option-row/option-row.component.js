@@ -14,6 +14,7 @@ export default function optionRowComponent() {
 			catchKeydown: '&',
 			resetFocusCounter: '&',
 			searchText: '@',
+			customCompare: '<',
 		},
 	};
 

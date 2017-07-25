@@ -20,7 +20,7 @@
 		</div>
 		<ul class="children"
 				 ng-if="$ctrl.isFolder() && ($ctrl.isOpen || ($ctrl.shouldBeVisible() && $ctrl.searchText.length !== 0))">
-			<dropdown-tree-option-row ng-repeat="option in $ctrl.getChildOptions() track by $index"
+			<dropdown-tree-option-row ng-repeat="option in $ctrl.getChildOptions() | orderBy:$ctrl.settings.displayProperty:false:$ctrl.customCompare track by $index"
 																option="option"
 																settings="$ctrl.settings"
 																option-clicked="$ctrl.innerClicked(option)"

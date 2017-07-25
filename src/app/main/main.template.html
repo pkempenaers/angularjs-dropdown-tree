@@ -129,6 +129,14 @@
 							closeOnSelectionLimitReached
 						</label>
 					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.sortByDisplayProperty"
+										 ng-change="$ctrl.changeSettings()" />
+							sortByDisplayProperty
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -307,6 +315,14 @@
 						<td>boolean</td>
 						<td>
 							Only applicable when selectionLimit different from 0. Will close the dropdown when selection reaches the specified selectionLimit
+						</td>
+					</tr>
+					<tr>
+						<td>sortByDisplayProperty</td>
+						<td>false</td>
+						<td>boolean</td>
+						<td>
+							Will sort the options by the displayProperty
 						</td>
 					</tr>
 				</tbody>

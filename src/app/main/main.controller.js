@@ -8,16 +8,24 @@
 	$onInit() {
 		this.options = [
 			{
-				name: 'testoption',
+				name: 'b',
 				label: 'testoption label',
 			},
 			{
-				name: 'test folder',
+				name: 'a',
 				label: 'test folder label',
 				children: [
 					{
-						name: 'test child option',
-						label: 'test child option label',
+						name: 'c',
+						label: 'test child option c',
+					},
+					{
+						name: 'f',
+						label: 'test child option f',
+					},
+					{
+						name: 'd',
+						label: 'test child option d',
 					},
 				],
 				childoptions: [
