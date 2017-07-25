@@ -58,9 +58,24 @@
 			foldersOpen: true,
 			openFolderWhenInnerSelected: false,
 			closeOnSelectionLimitReached: false,
+			sortByDisplayProperty: false,
 		};
 
 		this.settings = angular.extend({}, this.defaultSettings);
+
+		const vm = this;
+		function customCompare(a, b) {
+			if (!vm.settings.sortByDisplayProperty) {
+				return 0;
+			}
+			if (a.value < b.value) {
+				return -1;
+			} else if (a.value > b.value) {
+				return 1;
+			}
+			return 0;
+		}
+		vm.customCompare = customCompare;
 	}
 
 	$onChanges(changes) {
