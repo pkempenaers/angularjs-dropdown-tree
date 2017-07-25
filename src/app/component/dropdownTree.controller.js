@@ -22,8 +22,6 @@
 		this.searchText = '';
 		this.selectedOptions = [];
 
-		this.focusCounter = -1;
-
 		this.defaultTexts = {
 			optionNames: 'items',
 		};
@@ -218,31 +216,44 @@
 	focusFirst() {
 		if (this.settings.disableSearch) {
 			this.$element[0].querySelectorAll('.focusable')[0].focus();
-			this.focusCounter = 0;
 		} else {
 			this.$element.find('input')[0].focus();
-			this.focusCounter = -1;
 		}
 	}
 
 	focusNext() {
+		let focusCounter = this.getFocusCounter();
 		const focusableItems = this.$element[0].querySelectorAll('.focusable');
-		if (focusableItems.length > this.focusCounter + 1) {
-			this.focusCounter += 1;
-			focusableItems[this.focusCounter].focus();
+		if (focusableItems.length > focusCounter + 1) {
+			focusCounter += 1;
+			focusableItems[focusCounter].focus();
 		}
 	}
 
 	focusPrevious() {
+		let focusCounter = this.getFocusCounter();
 		const focusableItems = this.$element[0].querySelectorAll('.focusable');
-		if (this.focusCounter >= 1) {
-			this.focusCounter -= 1;
-			focusableItems[this.focusCounter].focus();
+		if (focusCounter >= 1) {
+			focusCounter -= 1;
+			focusableItems[focusCounter].focus();
 		} else if (!this.settings.disableSearch) {
 			this.focusFirst();
 		} else {
 			this.focusSelf();
 		}
+	}
+
+	getFocusCounter() {
+		const focusableItems = this.$element[0].querySelectorAll('.focusable');
+		const focussedItem = this.$document[0].activeElement;
+
+		for (let i = 0; i < focusableItems.length; i += 1) {
+			if (focusableItems[i] === focussedItem) {
+				return i;
+			}
+		}
+
+		return -1;
 	}
 
 	focusSelf() {

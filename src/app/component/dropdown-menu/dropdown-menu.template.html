@@ -1,4 +1,4 @@
-<div class="dropdown-menu">
+﻿<div class="dropdown-menu">
 	<div class="top-menu form-group"
 			 ng-if="!$ctrl.settings.disableSearch">
 		<input class="form-control"
@@ -17,6 +17,7 @@
 															focus-next="$ctrl.focusNext()"
 															focus-previous="$ctrl.focusPrevious()"
 															catch-keydown="$ctrl.catchKeydown(event)"
+															reset-focus-counter="$ctrl.resetFocusCounter(element)"
 															search-text="{{$ctrl.searchText}}">
 		</dropdown-tree-option-row>
 	</ul>

@@ -1,4 +1,4 @@
-import controller from './option-row.controller';
+﻿import controller from './option-row.controller';
 
 export default function optionRowComponent() {
 	const component = {
@@ -12,6 +12,7 @@ export default function optionRowComponent() {
 			focusNext: '&',
 			focusPrevious: '&',
 			catchKeydown: '&',
+			resetFocusCounter: '&',
 			searchText: '@',
 		},
 	};
