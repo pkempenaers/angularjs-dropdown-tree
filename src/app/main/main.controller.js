@@ -43,6 +43,8 @@
 				}
 				return 'Select items';
 			},
+			foldersOpen: true,
+			openFolderWhenInnerSelected: false,
 			closeOnSelectionLimitReached: false,
 		};
 	}

@@ -108,6 +108,22 @@
 					<div>
 						<label>
 							<input type="checkbox"
+										 ng-model="$ctrl.settings.foldersOpen"
+										 ng-change="$ctrl.changeSettings()" />
+							foldersOpen
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="checkbox"
+										 ng-model="$ctrl.settings.openFolderWhenInnerSelected"
+										 ng-change="$ctrl.changeSettings()" />
+							openFolderWhenInnerSelected
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="checkbox"
 										 ng-model="$ctrl.settings.closeOnSelectionLimitReached"
 										 ng-change="$ctrl.changeSettings()" />
 							closeOnSelectionLimitReached
