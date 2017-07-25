@@ -22,7 +22,7 @@
 		this.searchText = '';
 		this.selectedOptions = [];
 
-		this.focusCounter = 0;
+		this.focusCounter = -1;
 
 		this.defaultTexts = {
 			optionNames: 'items',
