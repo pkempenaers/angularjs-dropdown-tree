@@ -1,4 +1,4 @@
-/*
+﻿/*
 	eslint class-methods-use-this: "off"
 */
 export default class DropdownTreeService {
@@ -9,6 +9,10 @@ export default class DropdownTreeService {
 	isFolder(option, settings) {
 		return Object.prototype.hasOwnProperty.call(option, settings.childrenProperty) &&
 			angular.isArray(option[settings.childrenProperty]);
+	}
+
+	shouldFolderBeOpen(folder, settings) {
+		return settings.foldersOpen;
 	}
 
 	getChildOptions(option, settings) {

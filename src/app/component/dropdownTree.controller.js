@@ -57,6 +57,7 @@
 				'caret',
 			],
 			appendToElement: this.$element.children(),
+			foldersOpen: true,
 		};
 
 		this.settings = angular.extend({}, this.defaultSettings);

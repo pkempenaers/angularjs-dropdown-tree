@@ -6,7 +6,7 @@
 
 		this.dropdownTreeService = dropdownTreeService;
 		if (this.isFolder()) {
-			this.isOpen = true;
+			this.isOpen = this.dropdownTreeService.shouldFolderBeOpen(this.option, this.settings);
 		}
 	}
 
