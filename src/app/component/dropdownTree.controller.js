@@ -77,6 +77,16 @@
 			if (!vm.settings.sortByDisplayProperty) {
 				return 0;
 			}
+			if (a.type === 'string') {
+				const aLowerCase = a.value.toLowerCase();
+				const bLowerCase = b.value.toLowerCase();
+				if (aLowerCase < bLowerCase) {
+					return -1;
+				} else if (aLowerCase > bLowerCase) {
+					return 1;
+				}
+				return 0;
+			}
 			if (a.value < b.value) {
 				return -1;
 			} else if (a.value > b.value) {
