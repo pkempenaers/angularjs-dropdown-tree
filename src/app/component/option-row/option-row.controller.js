@@ -8,9 +8,34 @@
 		this.dropdownTreeService = dropdownTreeService;
 		this.$element = $element;
 
+		this.previousSelected = [];
+
 		if (this.isFolder()) {
 			this.isOpen = this.dropdownTreeService
 				.shouldFolderBeOpen(this.option, this.settings, this.selectedOptions);
+		}
+	}
+
+	$doCheck() {
+		if (angular.isDefined(this.selectedOptions) &&
+			!this.dropdownTreeService.areSameSelections(this.selectedOptions, this.previousSelected) &&
+			this.isFolder()) {
+			const newSelection = [];
+			this.selectedOptions.forEach((selectedOption) => {
+				if (this.previousSelected.indexOf(selectedOption) < 0) {
+					newSelection.push(selectedOption);
+				}
+			});
+
+			this.getChildOptions().some((childOption) => {
+				if (newSelection.indexOf(childOption) >= 0) {
+					this.isOpen = true;
+					return true;
+				}
+				return false;
+			});
+
+			this.previousSelected = angular.extend([], this.selectedOptions);
 		}
 	}
 
