@@ -15,7 +15,7 @@
 			<span ng-if="!$ctrl.isFolder()"
 						ng-class="$ctrl.settings.childClass"></span>
 			<span tabindex="-1" 
-					 ng-click="(!$ctrl.isFolder() || $ctrl.settings.folderSelectable) && $ctrl.innerClicked($ctrl.option)"
+					 ng-click="((!$ctrl.isFolder() || $ctrl.settings.folderSelectable) && $ctrl.innerClicked($ctrl.option)) || ($ctrl.isFolder() && !$ctrl.settings.folderSelectable && $ctrl.selectAllChilds())"
 					 ng-keydown="$ctrl.keyDown($event)"
 					 class="focusable">
 				{{$ctrl.getDisplayText()}}

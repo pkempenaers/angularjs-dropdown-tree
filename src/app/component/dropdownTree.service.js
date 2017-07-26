@@ -39,6 +39,55 @@ export default class DropdownTreeService {
 		return undefined;
 	}
 
+	selectAllChildOptions(option, settings, currentSelection) {
+		const optionsToAdd = this.getOptionsToAdd(option, settings, currentSelection);
+
+		if (optionsToAdd.length === 0) {
+			this.removeAllChildOptions(option, settings, currentSelection);
+			return true;
+		}
+		if (settings.selectionLimit === 0) {
+			optionsToAdd.forEach((optionToAdd) => {
+				currentSelection.push(optionToAdd);
+			});
+			return true;
+		}
+		if (optionsToAdd.length + currentSelection.length <= settings.selectionLimit) {
+			optionsToAdd.forEach((optionToAdd) => {
+				currentSelection.push(optionToAdd);
+			});
+			return true;
+		}
+
+		return false;
+	}
+
+	getOptionsToAdd(option, settings, currentSelection) {
+		let optionsToAdd = [];
+		if (this.isFolder(option, settings)) {
+			this.getChildOptions(option, settings)
+				.forEach((childOption) => {
+					optionsToAdd = optionsToAdd.concat(
+						this.getOptionsToAdd(childOption, settings, currentSelection, false),
+					);
+				});
+		} else if (currentSelection.indexOf(option) < 0) {
+			optionsToAdd.push(option);
+		}
+
+		return optionsToAdd;
+	}
+
+	removeAllChildOptions(option, settings, currentSelection) {
+		if (this.isFolder(option, settings)) {
+			this.getChildOptions(option, settings).forEach((childOption) => {
+				this.removeAllChildOptions(childOption, settings, currentSelection);
+			});
+		} else if (currentSelection.indexOf(option) >= 0) {
+			currentSelection.splice(currentSelection.indexOf(option), 1);
+		}
+	}
+
 	isVisible(option, settings, searchText) {
 		if (this.isFolder(option, settings) &&
 			!this.isVisibleItem(option, settings, searchText)) {
@@ -101,5 +150,12 @@ export default class DropdownTreeService {
 			return false;
 		}
 		return !collection.some(option => compareCollection.indexOf(option) < 0);
+	}
+
+	isSelectAble(option, settings) {
+		if (!this.isFolder(option, settings)) {
+			return true;
+		}
+		return settings.folderSelectable;
 	}
 }
