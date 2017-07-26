@@ -43,7 +43,7 @@
 				this.option,
 				this.settings,
 				this.selectedOptions,
-				true,
+				this.searchText,
 			);
 		if (selectionChanged) {
 			this.optionClicked({ option: this.option });
