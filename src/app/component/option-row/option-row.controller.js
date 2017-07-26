@@ -37,6 +37,19 @@
 		this.optionClicked({ option });
 	}
 
+	selectAllChilds() {
+		const selectionChanged =
+			this.dropdownTreeService.selectAllChildOptions(
+				this.option,
+				this.settings,
+				this.selectedOptions,
+				true,
+			);
+		if (selectionChanged) {
+			this.optionClicked({ option: this.option });
+		}
+	}
+
 	isSelected() {
 		return this.selectedOptions.indexOf(this.option) >= 0;
 	}

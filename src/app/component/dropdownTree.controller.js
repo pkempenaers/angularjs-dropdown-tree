@@ -151,20 +151,22 @@
 	}
 
 	optionClicked(option) {
-		const indexOfOption = this.selectedOptions.indexOf(option);
-		if (indexOfOption >= 0) {
-			this.selectedOptions.splice(indexOfOption, 1);
-		} else {
-			if (this.settings.selectionLimit > 0) {
-				if (this.settings.selectionLimit === this.selectedOptions.length) {
-					if (this.settings.removeFromFront) {
-						this.selectedOptions.splice(0, 1);
-					} else {
-						this.selectedOptions.splice(this.selectedOptions.length - 1, 1);
+		if (this.dropdownTreeService.isSelectAble(option, this.settings)) {
+			const indexOfOption = this.selectedOptions.indexOf(option);
+			if (indexOfOption >= 0) {
+				this.selectedOptions.splice(indexOfOption, 1);
+			} else {
+				if (this.settings.selectionLimit > 0) {
+					if (this.settings.selectionLimit === this.selectedOptions.length) {
+						if (this.settings.removeFromFront) {
+							this.selectedOptions.splice(0, 1);
+						} else {
+							this.selectedOptions.splice(this.selectedOptions.length - 1, 1);
+						}
 					}
 				}
+				this.selectedOptions.push(option);
 			}
-			this.selectedOptions.push(option);
 		}
 		this.emitSelection();
 	}
