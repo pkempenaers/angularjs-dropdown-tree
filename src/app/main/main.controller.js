@@ -20,7 +20,7 @@
 						label: 'test child option c',
 					},
 					{
-						name: 'f',
+						name: 'fa',
 						label: 'test child option f',
 					},
 					{

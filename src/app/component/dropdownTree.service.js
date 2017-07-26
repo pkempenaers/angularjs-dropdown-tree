@@ -39,11 +39,11 @@ export default class DropdownTreeService {
 		return undefined;
 	}
 
-	selectAllChildOptions(option, settings, currentSelection) {
-		const optionsToAdd = this.getOptionsToAdd(option, settings, currentSelection);
+	selectAllChildOptions(option, settings, currentSelection, searchText) {
+		const optionsToAdd = this.getOptionsToAdd(option, settings, currentSelection, searchText);
 
 		if (optionsToAdd.length === 0) {
-			this.removeAllChildOptions(option, settings, currentSelection);
+			this.removeAllChildOptions(option, settings, currentSelection, searchText);
 			return true;
 		}
 		if (settings.selectionLimit === 0) {
@@ -62,28 +62,30 @@ export default class DropdownTreeService {
 		return false;
 	}
 
-	getOptionsToAdd(option, settings, currentSelection) {
+	getOptionsToAdd(option, settings, currentSelection, searchText) {
 		let optionsToAdd = [];
 		if (this.isFolder(option, settings)) {
 			this.getChildOptions(option, settings)
 				.forEach((childOption) => {
 					optionsToAdd = optionsToAdd.concat(
-						this.getOptionsToAdd(childOption, settings, currentSelection, false),
+						this.getOptionsToAdd(childOption, settings, currentSelection, searchText),
 					);
 				});
-		} else if (currentSelection.indexOf(option) < 0) {
+		} else if (currentSelection.indexOf(option) < 0 &&
+			this.isVisible(option, settings, searchText)) {
 			optionsToAdd.push(option);
 		}
 
 		return optionsToAdd;
 	}
 
-	removeAllChildOptions(option, settings, currentSelection) {
+	removeAllChildOptions(option, settings, currentSelection, searchText) {
 		if (this.isFolder(option, settings)) {
 			this.getChildOptions(option, settings).forEach((childOption) => {
-				this.removeAllChildOptions(childOption, settings, currentSelection);
+				this.removeAllChildOptions(childOption, settings, currentSelection, searchText);
 			});
-		} else if (currentSelection.indexOf(option) >= 0) {
+		} else if (currentSelection.indexOf(option) >= 0 &&
+			this.isVisible(option, settings, searchText)) {
 			currentSelection.splice(currentSelection.indexOf(option), 1);
 		}
 	}
