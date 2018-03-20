@@ -9,7 +9,9 @@
 		this.$element = $element;
 
 		this.previousSelected = [];
+	}
 
+	$onInit() {
 		if (this.isFolder()) {
 			this.isOpen = this.dropdownTreeService
 				.shouldFolderBeOpen(this.option, this.settings, this.selectedOptions);
