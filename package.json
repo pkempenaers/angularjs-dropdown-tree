@@ -1,7 +1,7 @@
 {
 	"author": "Pieter Kempenaers <pieter.kempenaers@gmail.com>",
   "name": "angularjs-dropdown-tree",
-  "version": "0.0.5",
+  "version": "0.0.14",
   "dependencies": {
 		"angular": "~1.5"
   },
